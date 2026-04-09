@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Parent del multi-module (raíz tempy/pom.xml) -->
+	<parent>
+		<groupId>com.dasaczzz</groupId>
+		<artifactId>tempy</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<!-- Artifact del módulo -->
+	<artifactId>cli</artifactId>
+	<name>cli</name>
+	<description>Tempy CLI for generating backend files</description>
+
+	<properties>
+		<java.version>21</java.version>
+		<!-- Spring Shell no está en el BOM de Spring Boot: se declara versión -->
+		<spring-shell.version>3.2.1</spring-shell.version>
+	</properties>
+
+	<dependencies>
+		<!-- Base Boot (logging, autoconfig, etc.) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<!-- Spring Shell -->
+		<dependency>
+			<groupId>org.springframework.shell</groupId>
+			<artifactId>spring-shell-starter</artifactId>
+			<version>${spring-shell.version}</version>
+		</dependency>
+
+		<!-- Opcional: generación de Java -->
+		<dependency>
+			<groupId>com.squareup</groupId>
+			<artifactId>javapoet</artifactId>
+			<version>1.13.0</version>
+		</dependency>
+
+		<!-- Opcional: helpers de IO -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.16.1</version>
+		</dependency>
+
+		<!-- Tests -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
