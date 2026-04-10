@@ -5,16 +5,16 @@ import com.dasaczzz.tempy.Lib.BaseResponse;
 import com.dasaczzz.tempy.Model.IdLike;
 import com.dasaczzz.tempy.Model.LikeModel;
 import com.dasaczzz.tempy.Repository.LikeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class LikeServiceImp implements LikeService {
 
-  @Autowired
-  LikeRepository likesRepository;
+  private final LikeRepository likesRepository;
 
   @Override
   public BaseResponse<LikeModel> createRecord(LikeModel record) {
@@ -28,6 +28,7 @@ public class LikeServiceImp implements LikeService {
     return BaseResponse.ok(likes);
   }
 
+  @Override
   public BaseResponse<LikeModel> getLike(String postId, String userId) {
     IdLike id = new IdLike(postId, userId);
     LikeModel like = likesRepository

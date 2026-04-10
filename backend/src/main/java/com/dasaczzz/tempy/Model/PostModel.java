@@ -18,28 +18,30 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostModel extends BaseModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String idPost;
 
-    @NotBlank(message = "the text is required")
-    @Column(nullable = false)
-    private String text;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private String idPost;
 
-    @NotNull(message = "the deadline is required")
-    @CreationTimestamp
-    @Column(name = "deadline", nullable = false)
-    private LocalDateTime deadline;
+  @NotBlank(message = "the text is required")
+  @Column(nullable = false)
+  private String text;
 
-    @NotNull(message = "the visibility is required")
-    @Column(nullable = false)
-    private Boolean isPublic;
+  @NotNull(message = "the deadline is required")
+  @CreationTimestamp
+  @Column(name = "deadline", nullable = false)
+  private LocalDateTime deadline;
 
-    @Column(nullable = false)
-    private Boolean isActive = true;
+  @NotNull(message = "the visibility is required")
+  @Column(nullable = false)
+  private Boolean isPublic;
 
-    @NotNull(message = "the id of the user is required")
-    @ManyToOne
-    @JoinColumn(name="idUser", nullable = false)
-    private UserModel iduser;
+  @Column(nullable = false)
+  private Boolean isActive = true;
+
+  @NotNull(message = "the id of the user is required")
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "idUser", nullable = false)
+  private UserModel idUser;
+
 }

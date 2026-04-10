@@ -1,7 +1,9 @@
 package com.dasaczzz.tempy.Exception;
 
 public class ResourceNotFound extends RuntimeException {
-    public ResourceNotFound(String message) {
-        super(message);
-    }
+
+  public ResourceNotFound(String message) {
+    super(message);
+  }
+
 }

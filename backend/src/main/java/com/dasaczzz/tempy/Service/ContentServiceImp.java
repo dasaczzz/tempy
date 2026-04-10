@@ -4,16 +4,16 @@ import com.dasaczzz.tempy.Exception.ResourceNotFound;
 import com.dasaczzz.tempy.Lib.BaseResponse;
 import com.dasaczzz.tempy.Model.ContentModel;
 import com.dasaczzz.tempy.Repository.ContentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ContentServiceImp implements ContentService {
 
-  @Autowired
-  ContentRepository contentRepository;
+  private final ContentRepository contentRepository;
 
   @Override
   public BaseResponse<ContentModel> createRecord(ContentModel record) {

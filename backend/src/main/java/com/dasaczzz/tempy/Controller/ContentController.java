@@ -4,7 +4,7 @@ import com.dasaczzz.tempy.Lib.BaseResponse;
 import com.dasaczzz.tempy.Model.ContentModel;
 import com.dasaczzz.tempy.Service.ContentService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/contents")
+@RequiredArgsConstructor
 public class ContentController implements BaseController<ContentModel, ContentModel> {
 
-  @Autowired
-  ContentService contentService;
+  private final ContentService contentService;
 
   @Override
   @PostMapping("/")

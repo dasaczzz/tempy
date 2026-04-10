@@ -10,12 +10,14 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 public class PostDTO {
-    private String idPost;
-    private String text;
-    private LocalDateTime deadline;
-    private boolean isPublic;
-    private boolean isActive;
-    private String idUser;
-    private String username;
-    private String profilePicture;
+
+  private String idPost;
+  private String text;
+  private LocalDateTime deadline;
+  private boolean isPublic;
+  private boolean isActive;
+  private String idUser;
+  private String username;
+  private String profilePicture;
+
 }
