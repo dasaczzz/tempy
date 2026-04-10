@@ -29,7 +29,9 @@ public class UserServiceImp implements UserService {
 
   @Override
   public BaseResponse<UserModel> getRecordById(String id) {
-    UserModel user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The user with id %s has not been found", id)));
+    UserModel user = userRepository
+        .findById(id)
+        .orElseThrow(() -> new ResourceNotFound(String.format("The user with id %s has not been found", id)));
     return BaseResponse.ok(user);
   }
 

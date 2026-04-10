@@ -29,7 +29,9 @@ public class ContentServiceImp implements ContentService {
 
   @Override
   public BaseResponse<ContentModel> getRecordById(String id) {
-    ContentModel content = contentRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The content with id %s has not been found", id)));
+    ContentModel content = contentRepository
+        .findById(id)
+        .orElseThrow(() -> new ResourceNotFound(String.format("The content with id %s has not been found", id)));
     return BaseResponse.ok(content);
   }
 

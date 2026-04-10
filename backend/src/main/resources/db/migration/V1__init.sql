@@ -27,9 +27,9 @@ CREATE TABLE Post
 CREATE TABLE Content
 (
     idContent VARCHAR(36) PRIMARY KEY,
-    link      VARCHAR(255) NOT NULL,
-    type      ENUM('GIF', 'MP4', 'JPEG', 'JPG', 'PNG', 'WEBP') NOT NULL,
-    idPost    VARCHAR(36)  NOT NULL,
+    link      VARCHAR(255)                                      NOT NULL,
+    type      ENUM ('GIF', 'MP4', 'JPEG', 'JPG', 'PNG', 'WEBP') NOT NULL,
+    idPost    VARCHAR(36)                                       NOT NULL,
     CONSTRAINT fkPostContent FOREIGN KEY (idPost)
         REFERENCES Post (idPost) ON DELETE CASCADE
 );
