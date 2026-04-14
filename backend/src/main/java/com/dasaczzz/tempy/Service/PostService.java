@@ -1,6 +1,8 @@
 package com.dasaczzz.tempy.Service;
 
-import com.dasaczzz.tempy.DTO.PostDTO;
-import com.dasaczzz.tempy.Model.PostModel;
+import com.dasaczzz.tempy.DTO.CreatePostDTO;
+import com.dasaczzz.tempy.DTO.ResponsePostDTO;
 
-public interface PostService extends BaseService<PostModel, PostDTO> { }
+import java.util.UUID;
+
+public interface PostService extends BaseService<UUID, CreatePostDTO, ResponsePostDTO> { }

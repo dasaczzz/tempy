@@ -1,62 +1,72 @@
 package com.dasaczzz.tempy.Service;
 
-import com.dasaczzz.tempy.DTO.PostDTO;
+import com.dasaczzz.tempy.DTO.CreatePostDTO;
+import com.dasaczzz.tempy.DTO.ResponsePostDTO;
 import com.dasaczzz.tempy.Exception.ResourceNotFound;
 import com.dasaczzz.tempy.Lib.BaseResponse;
 import com.dasaczzz.tempy.Model.PostModel;
+import com.dasaczzz.tempy.Model.UserModel;
 import com.dasaczzz.tempy.Repository.PostRepository;
+import com.dasaczzz.tempy.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class PostServiceImp implements PostService {
 
   private final PostRepository postRepository;
+  private final UserRepository userRepository;
 
   @Override
-  public BaseResponse<PostDTO> createRecord(PostModel record) {
-    PostModel post = postRepository.save(record);
-    PostModel fullPost = postRepository
-        .findById(post.getIdPost())
-        .orElseThrow(() -> new ResourceNotFound("error finding the saved post"));
-
-    return BaseResponse.ok(mapToDTO(fullPost));
-  }
-
-  @Override
-  public BaseResponse<List<PostDTO>> getRecords() {
-    List<PostModel> posts = postRepository.findAll();
-    List<PostDTO> postsDTO = posts.stream().map(this::mapToDTO).toList();
-    return BaseResponse.ok(postsDTO);
-  }
-
-  @Override
-  public BaseResponse<PostDTO> getRecordById(String id) {
-    PostModel post = postRepository
-        .findById(id)
-        .orElseThrow(() -> new ResourceNotFound(String.format("The post with id %s has not been found", id)));
+  public BaseResponse<ResponsePostDTO> createRecord(CreatePostDTO record) {
+    UserModel user = userRepository
+        .findById(record.getIdUser())
+        .orElseThrow(() -> new ResourceNotFound(String.format("The idUser '%s' has not been found", record.getIdUser())));
+    PostModel post = PostModel
+        .builder()
+        .text(record.getText())
+        .deadline(record.getDeadline())
+        .isPublic(record.getIsPublic())
+        .isActive(true)
+        .user(user)
+        .build();
+    postRepository.save(post);
     return BaseResponse.ok(mapToDTO(post));
   }
 
   @Override
-  public BaseResponse<PostDTO> deleteRecord(String id) {
-    return null;
+  public BaseResponse<List<ResponsePostDTO>> getRecords() {
+    List<PostModel> posts = postRepository.findAll();
+    List<ResponsePostDTO> postsDTO = posts.stream().map(this::mapToDTO).toList();
+    return BaseResponse.ok(postsDTO);
   }
 
-  private PostDTO mapToDTO(PostModel post) {
-    return PostDTO
+  @Override
+  public BaseResponse<ResponsePostDTO> getRecordById(UUID id) {
+    PostModel post = postRepository
+        .findById(id)
+        .orElseThrow(() -> new ResourceNotFound(String.format("The idPost '%s' has not been found", id)));
+    return BaseResponse.ok(mapToDTO(post));
+  }
+
+  @Override
+  public BaseResponse<ResponsePostDTO> deleteRecord(UUID id) { return null; }
+
+  private ResponsePostDTO mapToDTO(PostModel post) {
+    return ResponsePostDTO
         .builder()
-        .idPost(post.getIdPost())
+        .id(post.getId())
         .text(post.getText())
         .deadline(post.getDeadline())
         .isPublic(post.getIsPublic())
         .isActive(post.getIsActive())
-        .idUser(post.getIdUser().getIdUser())
-        .username(post.getIdUser().getUsername())
-        .profilePicture(post.getIdUser().getProfilePicture())
+        .idUser(post.getUser().getId())
+        .username(post.getUser().getUsername())
+        .profilePicture(post.getUser().getProfilePicture())
         .build();
   }
 
