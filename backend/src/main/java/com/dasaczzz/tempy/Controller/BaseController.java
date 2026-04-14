@@ -1,19 +1,19 @@
 package com.dasaczzz.tempy.Controller;
 
 import com.dasaczzz.tempy.Lib.BaseResponse;
-import com.dasaczzz.tempy.Model.BaseModel;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public interface BaseController<T extends BaseModel, D> {
+// ID: id type of the model. C: CreateDTO, R: ResponseDTO
+public interface BaseController<ID, C, R> {
 
-  ResponseEntity<BaseResponse<D>> createRecord(T record);
+  ResponseEntity<BaseResponse<R>> createRecord(C record);
 
-  ResponseEntity<BaseResponse<List<D>>> getRecords();
+  ResponseEntity<BaseResponse<List<R>>> getRecords();
 
-  ResponseEntity<BaseResponse<D>> getRecordById(String id);
+  ResponseEntity<BaseResponse<R>> getRecordById(ID id);
 
-  ResponseEntity<BaseResponse<D>> deleteRecord(String id);
+  ResponseEntity<BaseResponse<R>> deleteRecord(ID id);
 
 }

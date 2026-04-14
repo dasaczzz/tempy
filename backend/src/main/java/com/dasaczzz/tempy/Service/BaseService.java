@@ -1,18 +1,18 @@
 package com.dasaczzz.tempy.Service;
 
 import com.dasaczzz.tempy.Lib.BaseResponse;
-import com.dasaczzz.tempy.Model.BaseModel;
 
 import java.util.List;
 
-public interface BaseService<T extends BaseModel, D> {
+// ID: id type of the model. C: CreateDTO, R: ResponseDTO
+public interface BaseService<ID, C, R> {
 
-  BaseResponse<D> createRecord(T record);
+  BaseResponse<R> createRecord(C record);
 
-  BaseResponse<List<D>> getRecords();
+  BaseResponse<List<R>> getRecords();
 
-  BaseResponse<D> getRecordById(String id);
+  BaseResponse<R> getRecordById(ID id);
 
-  BaseResponse<D> deleteRecord(String id);
+  BaseResponse<R> deleteRecord(ID id);
 
 }
