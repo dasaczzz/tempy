@@ -35,7 +35,7 @@ VALUES (@post1, @user2),
        (@post3, @user1);
 
 
-INSERT INTO Follower (idFollowed, idFollower)
+INSERT INTO Follow (idFollowed, idFollower)
 VALUES (@user1, @user2),
        (@user1, @user3),
        (@user2, @user1);

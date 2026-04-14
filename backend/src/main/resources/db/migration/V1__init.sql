@@ -46,7 +46,7 @@ CREATE TABLE `Like`
     CONSTRAINT fkLikeUser FOREIGN KEY (idUser) REFERENCES User (id) ON DELETE CASCADE
 );
 
-CREATE TABLE Follower
+CREATE TABLE Follow
 (
     idFollowed BINARY(16) NOT NULL,
     idFollower BINARY(16) NOT NULL,
@@ -62,5 +62,5 @@ CREATE INDEX idxPostDeadline ON Post (deadline);
 CREATE INDEX idxUserUsername ON User (username);
 
 CREATE INDEX idxPostIdUser ON Post (idUser);
-CREATE INDEX idxFollowerIdx ON Follower (idFollower);
+CREATE INDEX idxFollowerIdx ON Follow (idFollower);
 CREATE INDEX idxLikeUser ON `Like` (idUser);
