@@ -1,5 +1,8 @@
 package com.dasaczzz.tempy.Service;
 
-import com.dasaczzz.tempy.Model.UserModel;
+import com.dasaczzz.tempy.DTO.CreateUserDTO;
+import com.dasaczzz.tempy.DTO.ResponseUserDTO;
 
-public interface UserService extends BaseService<UserModel, UserModel> { }
+import java.util.UUID;
+
+public interface UserService extends BaseService<UUID, CreateUserDTO, ResponseUserDTO> { }

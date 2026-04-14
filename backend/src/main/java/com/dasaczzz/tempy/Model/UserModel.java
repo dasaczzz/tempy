@@ -1,39 +1,29 @@
 package com.dasaczzz.tempy.Model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.*;
 
-@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "User")
-@Data
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserModel extends BaseModel {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private String idUser;
-
-  @NotBlank(message = "the username is required")
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true, length = 50)
   private String username;
 
-  @NotBlank(message = "the email is required")
-  @Email(message = "invalid email format")
-  @Column(nullable = false)
+  @Column(nullable = false, length = 50)
   private String email;
 
-  @NotBlank(message = "the password is required")
-  @Column(nullable = false)
+  @Column(nullable = false, length = 70)
   private String password;
 
   @Column
-  private String profilePicture = "https://resources.com/avatar.png";
+  private String profilePicture;
 
 }
