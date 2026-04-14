@@ -1,31 +1,32 @@
 package com.dasaczzz.tempy.Model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "`Like`")
-@Data
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@IdClass(IdLike.class)
-public class LikeModel extends BaseModel {
+public class LikeModel {
 
-  @NotNull(message = "the id of the post is required")
-  @Id
-  @ManyToOne
-  @JoinColumn(name = "idPost", nullable = false)
-  private PostModel idPost;
+  @EmbeddedId
+  private IdLike id;
 
-  @NotNull(message = "the id of the user is required")
-  @Id
-  @ManyToOne
-  @JoinColumn(name = "idUser", nullable = false)
-  private UserModel idUser;
+  @ManyToOne()
+  @JoinColumn(name = "idPost", referencedColumnName = "id", insertable = false, updatable = false)
+  private PostModel post;
+
+  @ManyToOne()
+  @JoinColumn(name = "idUser", referencedColumnName = "id", insertable = false, updatable = false)
+  private UserModel user;
+
+  public LikeModel(PostModel post, UserModel user) {
+    this.user = user;
+    this.post = post;
+    this.id = new IdLike(post.getId(), user.getId());
+  }
 
 }

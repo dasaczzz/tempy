@@ -1,7 +1,8 @@
 package com.dasaczzz.tempy.Controller;
 
+import com.dasaczzz.tempy.DTO.LikeDTO;
 import com.dasaczzz.tempy.Lib.BaseResponse;
-import com.dasaczzz.tempy.Model.LikeModel;
+import com.dasaczzz.tempy.Model.IdLike;
 import com.dasaczzz.tempy.Service.LikeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -10,39 +11,31 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/likes")
 @RequiredArgsConstructor
-public class LikesController implements BaseController<LikeModel, LikeModel> {
+public class LikesController {
 
   private final LikeService likeService;
 
-  @Override
   @PostMapping("/")
-  public ResponseEntity<BaseResponse<LikeModel>> createRecord(@Valid @RequestBody LikeModel like) {
+  public ResponseEntity<BaseResponse<LikeDTO>> createRecord(@Valid @RequestBody LikeDTO like) {
     return new ResponseEntity<>(likeService.createRecord(like), HttpStatus.CREATED);
   }
 
-  @Override
   @GetMapping("/")
-  public ResponseEntity<BaseResponse<List<LikeModel>>> getRecords() {
+  public ResponseEntity<BaseResponse<List<LikeDTO>>> getRecords() {
     return new ResponseEntity<>(likeService.getRecords(), HttpStatus.OK);
   }
 
-  @Override
-  @Deprecated
-  public ResponseEntity<BaseResponse<LikeModel>> getRecordById(@PathVariable String id) {
-    throw new UnsupportedOperationException("to get a like by id's, please use this endpoint: /api/likes/{postId}/{userId}");
+  @GetMapping("/{idUser}/{idPost}")
+  public ResponseEntity<BaseResponse<LikeDTO>> getRecordById(@PathVariable UUID idUser, @PathVariable UUID idPost) {
+    return ResponseEntity.ok(likeService.getRecordById(new IdLike(idUser, idPost)));
   }
 
-  @GetMapping("/{postId}/{userId}")
-  public ResponseEntity<BaseResponse<LikeModel>> getLike(@PathVariable String postId, @PathVariable String userId) {
-    return new ResponseEntity<>(likeService.getLike(postId, userId), HttpStatus.OK);
-  }
-
-  @Override
-  public ResponseEntity<BaseResponse<LikeModel>> deleteRecord(String id) {
+  public ResponseEntity<BaseResponse<LikeDTO>> deleteRecord(IdLike id) {
     return null;
   }
 
