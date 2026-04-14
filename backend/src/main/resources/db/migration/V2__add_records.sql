@@ -1,33 +1,41 @@
-INSERT INTO User (idUser, username, email, password, profilePicture)
-VALUES ('550e8400-e29b-41d4-a716-446655440000', 'danisanc', 'daniel@test.com',
-        '$2a$10$8.UnVuG9HHgffUDAlk8q6Ou5HECyZ4zR0h2F6j6.3A.T6fW9L3bW.',
-        'https://api.dicebear.com/7.x/avataaars/svg?seed=Daniel'),
-       ('a1b2c3d4-e5f6-4a5b-b6c7-d8e9f0a1b2c3', 'caro_dev', 'caro@test.com',
-        '$2a$10$8.UnVuG9HHgffUDAlk8q6Ou5HECyZ4zR0h2F6j6.3A.T6fW9L3bW.',
-        'https://api.dicebear.com/7.x/avataaars/svg?seed=Caro'),
-       ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'profe_java', 'profe@test.com',
-        '$2a$10$8.UnVuG9HHgffUDAlk8q6Ou5HECyZ4zR0h2F6j6.3A.T6fW9L3bW.',
-        'https://api.dicebear.com/7.x/avataaars/svg?seed=Profe');
+SET @user1 = UNHEX('018F3E2A1B2C7000AAAA000000000001');
+SET @user2 = UNHEX('018F3E2A1B2C7000AAAA000000000002');
+SET @user3 = UNHEX('018F3E2A1B2C7000AAAA000000000003');
 
-INSERT INTO Post (idPost, text, deadline, isPublic, isActive, idUser)
-VALUES ('11111111-1111-1111-1111-111111111111', '¡Hola mundo! Mi primer post en la red social.', '2026-12-31 23:59:59',
-        TRUE, TRUE, '550e8400-e29b-41d4-a716-446655440000');
+INSERT INTO User (id, username, email, password, profilePicture)
+VALUES (@user1, 'carlos_dev', 'carlos@tempy.com', '$2a$10$hashCarlos123456789012345678901234567890123456',
+        'https://cdn.tempy.com/avatars/carlos.webp'),
+       (@user2, 'maria_ux', 'maria@tempy.com', '$2a$10$hashMaria1234567890123456789012345678901234567',
+        'https://cdn.tempy.com/avatars/maria.webp'),
+       (@user3, 'juan_photo', 'juan@tempy.com', '$2a$10$hashJuan12345678901234567890123456789012345678', NULL);
 
-INSERT INTO Post (idPost, text, deadline, isPublic, isActive, idUser)
-VALUES ('22222222-2222-2222-2222-222222222222', 'Este es un anuncio temporal que expirará pronto.',
-        '2026-04-02 12:00:00', TRUE, TRUE, 'a1b2c3d4-e5f6-4a5b-b6c7-d8e9f0a1b2c3');
+SET @post1 = UNHEX('018F3E2A1B2C7000BBBB000000000001');
+SET @post2 = UNHEX('018F3E2A1B2C7000BBBB000000000002');
+SET @post3 = UNHEX('018F3E2A1B2C7000BBBB000000000003');
 
-INSERT INTO Content (idContent, link, type, idPost)
-VALUES ('c1c1c1c1-c1c1-c1c1-c1c1-c1c1c1c1c1c1', 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97', 'JPEG',
-        '11111111-1111-1111-1111-111111111111'),
-       ('d2d2d2d2-d2d2-d2d2-d2d2-d2d2d2d2d2d2', 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJq/giphy.gif',
-        'GIF', '11111111-1111-1111-1111-111111111111');
+INSERT INTO Post (id, text, deadline, isPublic, isActive, idUser)
+VALUES (@post1, 'Primer post sobre desarrollo backend con Spring Boot!', '2025-12-31 23:59:59', TRUE, TRUE, @user1),
+       (@post2, 'Diseño UX: tips para mejorar la experiencia de usuario', '2025-11-30 23:59:59', TRUE, TRUE, @user2),
+       (@post3, 'Fotografía urbana en Cali — mis mejores tomas del mes', '2025-10-15 23:59:59', FALSE, TRUE, @user3);
+
+SET @content1 = UNHEX('018F3E2A1B2C7000CCCC000000000001');
+SET @content2 = UNHEX('018F3E2A1B2C7000CCCC000000000002');
+SET @content3 = UNHEX('018F3E2A1B2C7000CCCC000000000003');
+
+INSERT INTO Content (id, link, type, idPost)
+VALUES (@content1, 'https://cdn.tempy.com/posts/spring-boot-diagram.png', 'PNG', @post1),
+       (@content2, 'https://cdn.tempy.com/posts/ux-tips-infographic.jpeg', 'JPEG', @post2),
+       (@content3, 'https://cdn.tempy.com/posts/cali-streets-timelapse.mp4', 'MP4', @post3);
 
 INSERT INTO `Like` (idPost, idUser)
-VALUES ('11111111-1111-1111-1111-111111111111', 'a1b2c3d4-e5f6-4a5b-b6c7-d8e9f0a1b2c3'),
-       ('11111111-1111-1111-1111-111111111111', 'f47ac10b-58cc-4372-a567-0e02b2c3d479');
+VALUES (@post1, @user2),
+       (@post1, @user3),
+       (@post2, @user1),
+       (@post2, @user3),
+       (@post3, @user1);
+
 
 INSERT INTO Follower (idFollowed, idFollower)
-VALUES ('550e8400-e29b-41d4-a716-446655440000', 'a1b2c3d4-e5f6-4a5b-b6c7-d8e9f0a1b2c3'),
-       ('550e8400-e29b-41d4-a716-446655440000', 'f47ac10b-58cc-4372-a567-0e02b2c3d479'),
-       ('a1b2c3d4-e5f6-4a5b-b6c7-d8e9f0a1b2c3', '550e8400-e29b-41d4-a716-446655440000');
+VALUES (@user1, @user2),
+       (@user1, @user3),
+       (@user2, @user1);

@@ -1,2 +1,0 @@
-ALTER TABLE User
-    MODIFY COLUMN profilePicture VARCHAR(255) NULL;
