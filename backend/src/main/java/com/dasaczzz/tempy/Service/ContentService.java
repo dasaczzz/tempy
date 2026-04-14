@@ -1,5 +1,8 @@
 package com.dasaczzz.tempy.Service;
 
-import com.dasaczzz.tempy.Model.ContentModel;
+import com.dasaczzz.tempy.DTO.CreateContentDTO;
+import com.dasaczzz.tempy.DTO.ResponseContentDTO;
 
-public interface ContentService extends BaseService<ContentModel, ContentModel> { }
+import java.util.UUID;
+
+public interface ContentService extends BaseService<UUID, CreateContentDTO, ResponseContentDTO> { }
