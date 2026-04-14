@@ -6,16 +6,18 @@ package com.dasaczzz.cli.templates;
  */
 public final class RepositoryTemplate {
 
-    private RepositoryTemplate() {}
+  private RepositoryTemplate() {
+  }
 
-    public static String generate(String entityName, String basePackage) {
-        return """
-                package %s.Repository;
+  public static String generate(String entityName, String basePackage) {
+    return """
+        package %s.Repository;
+        
+        import %s.Model.%sModel;
+        import org.springframework.data.jpa.repository.JpaRepository;
+        
+        public interface %sRepository extends JpaRepository<%sModel, String> { }
+        """.formatted(basePackage, basePackage, entityName, entityName, entityName);
+  }
 
-                import %s.Model.%sModel;
-                import org.springframework.data.jpa.repository.JpaRepository;
-
-                public interface %sRepository extends JpaRepository<%sModel, String> { }
-                """.formatted(basePackage, basePackage, entityName, entityName, entityName);
-    }
 }

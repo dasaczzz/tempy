@@ -28,52 +28,53 @@ import java.util.Map;
 @Component
 public class EntityScaffolder {
 
-    private final FileWriterService fileWriterService;
+  private final FileWriterService fileWriterService;
 
-    public EntityScaffolder(FileWriterService fileWriterService) {
-        this.fileWriterService = fileWriterService;
+  public EntityScaffolder(FileWriterService fileWriterService) {
+    this.fileWriterService = fileWriterService;
+  }
+
+  /**
+   * Scaffolds the four entity files.
+   *
+   * @param entityName  PascalCase entity name (will be sanitised via {@link NamingUtils#ensurePascalCase})
+   * @param basePackage base Java package for the backend (e.g. {@code "com.dasaczzz.tempy"})
+   * @param backendPath filesystem path to the backend module root (e.g. {@code "../backend"})
+   * @return {@code null} on success, or an error message string on failure
+   */
+  public String scaffold(String entityName, String basePackage, String backendPath) {
+    entityName = NamingUtils.ensurePascalCase(entityName);
+
+    EntityPaths paths = new EntityPaths(backendPath, basePackage, entityName);
+
+    Map<Path, String> files = buildFileMap(entityName, basePackage, paths);
+
+    // Pre-check: verify no file already exists before writing anything
+    for (Path target : files.keySet()) {
+      if (target.toFile().exists()) {
+        return "Error: file already exists: " + target.toAbsolutePath();
+      }
     }
 
-    /**
-     * Scaffolds the four entity files.
-     *
-     * @param entityName  PascalCase entity name (will be sanitised via {@link NamingUtils#ensurePascalCase})
-     * @param basePackage base Java package for the backend (e.g. {@code "com.dasaczzz.tempy"})
-     * @param backendPath filesystem path to the backend module root (e.g. {@code "../backend"})
-     * @return {@code null} on success, or an error message string on failure
-     */
-    public String scaffold(String entityName, String basePackage, String backendPath) {
-        entityName = NamingUtils.ensurePascalCase(entityName);
-
-        EntityPaths paths = new EntityPaths(backendPath, basePackage, entityName);
-
-        Map<Path, String> files = buildFileMap(entityName, basePackage, paths);
-
-        // Pre-check: verify no file already exists before writing anything
-        for (Path target : files.keySet()) {
-            if (target.toFile().exists()) {
-                return "Error: file already exists: " + target.toAbsolutePath();
-            }
-        }
-
-        // Write all files
-        for (Map.Entry<Path, String> entry : files.entrySet()) {
-            try {
-                fileWriterService.writeIfNotExists(entry.getKey(), entry.getValue());
-            } catch (IOException e) {
-                return "Error writing " + entry.getKey().toAbsolutePath() + ": " + e.getMessage();
-            }
-        }
-
-        return null;
+    // Write all files
+    for (Map.Entry<Path, String> entry : files.entrySet()) {
+      try {
+        fileWriterService.writeIfNotExists(entry.getKey(), entry.getValue());
+      } catch (IOException e) {
+        return "Error writing " + entry.getKey().toAbsolutePath() + ": " + e.getMessage();
+      }
     }
 
-    private Map<Path, String> buildFileMap(String entityName, String basePackage, EntityPaths paths) {
-        Map<Path, String> files = new LinkedHashMap<>();
-        files.put(paths.modelPath(),      ModelTemplate.generate(entityName, basePackage));
-        files.put(paths.repositoryPath(), RepositoryTemplate.generate(entityName, basePackage));
-        files.put(paths.servicePath(),    ServiceTemplate.generate(entityName, basePackage));
-        files.put(paths.controllerPath(), ControllerTemplate.generate(entityName, basePackage));
-        return files;
-    }
+    return null;
+  }
+
+  private Map<Path, String> buildFileMap(String entityName, String basePackage, EntityPaths paths) {
+    Map<Path, String> files = new LinkedHashMap<>();
+    files.put(paths.modelPath(), ModelTemplate.generate(entityName, basePackage));
+    files.put(paths.repositoryPath(), RepositoryTemplate.generate(entityName, basePackage));
+    files.put(paths.servicePath(), ServiceTemplate.generate(entityName, basePackage));
+    files.put(paths.controllerPath(), ControllerTemplate.generate(entityName, basePackage));
+    return files;
+  }
+
 }

@@ -17,18 +17,19 @@ import java.nio.file.StandardOpenOption;
 @Service
 public class FileWriterService {
 
-    /**
-     * Writes {@code content} to {@code target}, creating parent directories as needed.
-     *
-     * @param target  the destination file path
-     * @param content the text content to write
-     * @throws IOException if the file already exists, or any I/O error occurs
-     */
-    public void writeIfNotExists(Path target, String content) throws IOException {
-        if (Files.exists(target)) {
-            throw new IOException("File already exists: " + target.toAbsolutePath());
-        }
-        Files.createDirectories(target.getParent());
-        Files.writeString(target, content, StandardCharsets.UTF_8, StandardOpenOption.CREATE_NEW);
+  /**
+   * Writes {@code content} to {@code target}, creating parent directories as needed.
+   *
+   * @param target  the destination file path
+   * @param content the text content to write
+   * @throws IOException if the file already exists, or any I/O error occurs
+   */
+  public void writeIfNotExists(Path target, String content) throws IOException {
+    if (Files.exists(target)) {
+      throw new IOException("File already exists: " + target.toAbsolutePath());
     }
+    Files.createDirectories(target.getParent());
+    Files.writeString(target, content, StandardCharsets.UTF_8, StandardOpenOption.CREATE_NEW);
+  }
+
 }
