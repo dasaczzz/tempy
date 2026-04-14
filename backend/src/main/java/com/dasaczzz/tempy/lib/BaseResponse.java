@@ -1,4 +1,4 @@
-package com.dasaczzz.tempy.Lib;
+package com.dasaczzz.tempy.lib;
 
 import lombok.Builder;
 import lombok.Data;

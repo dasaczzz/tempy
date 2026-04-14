@@ -1,7 +1,7 @@
 package com.dasaczzz.tempy.user;
 
-import com.dasaczzz.tempy.Exception.ResourceNotFound;
-import com.dasaczzz.tempy.Lib.BaseResponse;
+import com.dasaczzz.tempy.exception.ResourceNotFound;
+import com.dasaczzz.tempy.lib.BaseResponse;
 import com.dasaczzz.tempy.user.dtos.CreateUserDTO;
 import com.dasaczzz.tempy.user.dtos.ResponseUserDTO;
 import lombok.RequiredArgsConstructor;

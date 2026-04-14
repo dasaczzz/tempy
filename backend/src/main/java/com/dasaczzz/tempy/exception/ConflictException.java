@@ -1,4 +1,4 @@
-package com.dasaczzz.tempy.Exception;
+package com.dasaczzz.tempy.exception;
 
 public class ConflictException extends RuntimeException {
 

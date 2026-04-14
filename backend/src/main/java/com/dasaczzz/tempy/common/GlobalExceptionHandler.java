@@ -1,8 +1,8 @@
 package com.dasaczzz.tempy.common;
 
-import com.dasaczzz.tempy.Exception.ConflictException;
-import com.dasaczzz.tempy.Exception.ResourceNotFound;
-import com.dasaczzz.tempy.Lib.BaseResponse;
+import com.dasaczzz.tempy.exception.ConflictException;
+import com.dasaczzz.tempy.exception.ResourceNotFound;
+import com.dasaczzz.tempy.lib.BaseResponse;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;

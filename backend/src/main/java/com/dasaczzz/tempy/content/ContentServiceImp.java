@@ -2,8 +2,8 @@ package com.dasaczzz.tempy.content;
 
 import com.dasaczzz.tempy.content.dtos.CreateContentDTO;
 import com.dasaczzz.tempy.content.dtos.ResponseContentDTO;
-import com.dasaczzz.tempy.Exception.ResourceNotFound;
-import com.dasaczzz.tempy.Lib.BaseResponse;
+import com.dasaczzz.tempy.exception.ResourceNotFound;
+import com.dasaczzz.tempy.lib.BaseResponse;
 import com.dasaczzz.tempy.post.PostModel;
 import com.dasaczzz.tempy.post.PostRepository;
 import lombok.RequiredArgsConstructor;

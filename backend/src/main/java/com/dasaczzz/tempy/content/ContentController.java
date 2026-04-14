@@ -2,7 +2,7 @@ package com.dasaczzz.tempy.content;
 
 import com.dasaczzz.tempy.content.dtos.CreateContentDTO;
 import com.dasaczzz.tempy.content.dtos.ResponseContentDTO;
-import com.dasaczzz.tempy.Lib.BaseResponse;
+import com.dasaczzz.tempy.lib.BaseResponse;
 import com.dasaczzz.tempy.common.BaseController;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.dasaczzz.tempy.common;
 
-import com.dasaczzz.tempy.Lib.BaseResponse;
+import com.dasaczzz.tempy.lib.BaseResponse;
 
 import java.util.List;
 

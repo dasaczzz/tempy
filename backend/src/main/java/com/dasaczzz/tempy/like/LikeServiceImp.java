@@ -1,9 +1,9 @@
 package com.dasaczzz.tempy.like;
 
 import com.dasaczzz.tempy.like.dtos.LikeDTO;
-import com.dasaczzz.tempy.Exception.ConflictException;
-import com.dasaczzz.tempy.Exception.ResourceNotFound;
-import com.dasaczzz.tempy.Lib.BaseResponse;
+import com.dasaczzz.tempy.exception.ConflictException;
+import com.dasaczzz.tempy.exception.ResourceNotFound;
+import com.dasaczzz.tempy.lib.BaseResponse;
 import com.dasaczzz.tempy.post.PostModel;
 import com.dasaczzz.tempy.user.UserModel;
 import com.dasaczzz.tempy.post.PostRepository;

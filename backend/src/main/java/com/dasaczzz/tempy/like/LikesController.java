@@ -1,7 +1,7 @@
 package com.dasaczzz.tempy.like;
 
 import com.dasaczzz.tempy.like.dtos.LikeDTO;
-import com.dasaczzz.tempy.Lib.BaseResponse;
+import com.dasaczzz.tempy.lib.BaseResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
