@@ -23,8 +23,8 @@ public class LikeServiceImp implements LikeService {
 
   @Override
   public BaseResponse<LikeDTO> createRecord(LikeDTO record) {
-    IdLike likeId = new IdLike(record.getIdPost(), record.getIdUser());
-    if (likeRepository.existsById(likeId)) {
+    IdLike idLike = new IdLike(record.getIdPost(), record.getIdUser());
+    if (likeRepository.existsById(idLike)) {
       throw new ConflictException("The user already liked this post");
     }
 

@@ -68,7 +68,7 @@ public class GlobalExceptionHandler {
 
   // 500 — generic error
   @ExceptionHandler(Exception.class)
-  public ResponseEntity<BaseResponse<?>> handleGeneric(Exception ex) {
+  public ResponseEntity<BaseResponse<?>> handleGeneric() {
     return ResponseEntity.internalServerError().body(BaseResponse.fail("Internal server error"));
   }
 

@@ -14,7 +14,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/likes")
 @RequiredArgsConstructor
-public class LikesController {
+public class LikeController {
 
   private final LikeService likeService;
 
