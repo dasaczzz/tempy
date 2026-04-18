@@ -17,9 +17,13 @@ import lombok.Setter;
 public class ResponseUserDTO {
 
   private UUID id;
+
   private String username;
+
   private String email;
+
   private String profilePicture;
+
   private LocalDateTime createdAt;
 
 }

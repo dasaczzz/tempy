@@ -30,6 +30,7 @@ public class CreatePostDTO {
 
   @NotNull(message = "the visibility is required")
   private Boolean isPublic;
+
   private Boolean isActive;
 
   @NotNull(message = "the id of the user is required")

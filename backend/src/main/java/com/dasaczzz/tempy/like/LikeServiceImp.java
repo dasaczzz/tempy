@@ -18,7 +18,9 @@ import lombok.RequiredArgsConstructor;
 public class LikeServiceImp implements LikeService {
 
   private final LikeRepository likeRepository;
+
   private final UserRepository userRepository;
+
   private final PostRepository postRepository;
 
   @Override

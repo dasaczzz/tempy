@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class ContentServiceImp implements ContentService {
 
   private final ContentRepository contentRepository;
+
   private final PostRepository postRepository;
 
   @Override

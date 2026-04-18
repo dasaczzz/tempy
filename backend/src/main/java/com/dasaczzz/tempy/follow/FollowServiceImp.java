@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class FollowServiceImp implements FollowService {
 
   private final FollowRepository followRepository;
+
   private final UserRepository userRepository;
 
   @Override

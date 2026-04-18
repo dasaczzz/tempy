@@ -32,8 +32,6 @@ public class IdLike implements Serializable {
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(idUser, idPost);
-  }
+  public int hashCode() { return Objects.hash(idUser, idPost); }
 
 }

@@ -8,6 +8,7 @@ import lombok.Data;
 public class BaseResponse<T> {
 
   private boolean success;
+
   private T data;
 
   public static <T> BaseResponse<T> ok(T data) {

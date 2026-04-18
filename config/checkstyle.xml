@@ -45,5 +45,15 @@
     <module name="MissingSwitchDefault"/>
     <module name="ModifierOrder"/>
 
+    <module name="UnusedLocalVariable"/>
+
+    <module name="EmptyLineSeparator">
+      <property name="allowNoEmptyLineBetweenFields" value="false"/>
+    </module>
+
+    <module name="CyclomaticComplexity">
+      <property name="max" value="10"/>
+    </module>
+
   </module>
 </module>

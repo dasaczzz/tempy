@@ -15,12 +15,19 @@ import lombok.Setter;
 public class ResponsePostDTO {
 
   private UUID id;
+
   private String text;
+
   private LocalDateTime deadline;
+
   private boolean isPublic;
+
   private boolean isActive;
+
   private UUID idUser;
+
   private String username;
+
   private String profilePicture;
 
 }

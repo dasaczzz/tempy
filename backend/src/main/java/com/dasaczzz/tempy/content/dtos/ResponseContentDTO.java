@@ -17,8 +17,11 @@ import lombok.Setter;
 public class ResponseContentDTO {
 
   private UUID id;
+
   private String link;
+
   private TypeContent type;
+
   private UUID idPost;
 
 }

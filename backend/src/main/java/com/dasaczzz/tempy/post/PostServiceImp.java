@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class PostServiceImp implements PostService {
 
   private final PostRepository postRepository;
+
   private final UserRepository userRepository;
 
   @Override

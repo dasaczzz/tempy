@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImp implements UserService {
 
   private static final String DEFAULT_AVATAR = "https://cdn.tempy.com/avatars/default.webp";
+
   private final UserRepository userRepository;
 
   @Override
