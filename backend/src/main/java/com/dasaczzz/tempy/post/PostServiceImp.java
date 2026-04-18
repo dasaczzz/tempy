@@ -1,16 +1,16 @@
 package com.dasaczzz.tempy.post;
 
-import com.dasaczzz.tempy.post.dtos.CreatePostDTO;
-import com.dasaczzz.tempy.post.dtos.ResponsePostDTO;
-import com.dasaczzz.tempy.exception.ResourceNotFound;
-import com.dasaczzz.tempy.lib.BaseResponse;
-import com.dasaczzz.tempy.user.UserModel;
-import com.dasaczzz.tempy.user.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.UUID;
+import org.springframework.stereotype.Service;
+import com.dasaczzz.tempy.exception.ResourceNotFound;
+import com.dasaczzz.tempy.lib.BaseResponse;
+import com.dasaczzz.tempy.post.dtos.CreatePostDTO;
+import com.dasaczzz.tempy.post.dtos.ResponsePostDTO;
+import com.dasaczzz.tempy.user.UserModel;
+import com.dasaczzz.tempy.user.UserRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -45,9 +45,7 @@ public class PostServiceImp implements PostService {
 
   @Override
   public BaseResponse<ResponsePostDTO> getRecordById(UUID id) {
-    PostModel post = postRepository
-        .findById(id)
-        .orElseThrow(() -> new ResourceNotFound(String.format("The idPost '%s' has not been found", id)));
+    PostModel post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The idPost '%s' has not been found", id)));
     return BaseResponse.ok(mapToDTO(post));
   }
 

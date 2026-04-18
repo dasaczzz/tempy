@@ -1,8 +1,17 @@
 package com.dasaczzz.tempy.follow;
 
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import com.dasaczzz.tempy.user.UserModel;
-import jakarta.persistence.*;
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Follow")
@@ -12,6 +21,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FollowModel {
+
   @EmbeddedId
   private IdFollow id;
 
@@ -28,4 +38,5 @@ public class FollowModel {
     this.follower = follower;
     this.id = new IdFollow(followed.getId(), follower.getId());
   }
+
 }

@@ -1,9 +1,8 @@
 package com.dasaczzz.tempy.common;
 
-import com.dasaczzz.tempy.lib.BaseResponse;
-import org.springframework.http.ResponseEntity;
-
 import java.util.List;
+import org.springframework.http.ResponseEntity;
+import com.dasaczzz.tempy.lib.BaseResponse;
 
 // ID: id type of the model. C: CreateDTO, R: ResponseDTO
 public interface BaseController<ID, C, R> {

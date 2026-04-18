@@ -1,8 +1,7 @@
 package com.dasaczzz.tempy.common;
 
-import com.dasaczzz.tempy.exception.ConflictException;
-import com.dasaczzz.tempy.exception.ResourceNotFound;
-import com.dasaczzz.tempy.lib.BaseResponse;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -12,11 +11,12 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import com.dasaczzz.tempy.exception.ConflictException;
+import com.dasaczzz.tempy.exception.ResourceNotFound;
+import com.dasaczzz.tempy.lib.BaseResponse;
+
 import tools.jackson.databind.exc.InvalidFormatException;
 import tools.jackson.databind.exc.UnrecognizedPropertyException;
-
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -83,7 +83,8 @@ public class GlobalExceptionHandler {
     if (causeMessage != null) {
       if (causeMessage.contains("username")) {
         message = "The username is already taken";
-      } else if (causeMessage.contains("email")) {
+      }
+      else if (causeMessage.contains("email")) {
         message = "The email is already registered";
       }
     }

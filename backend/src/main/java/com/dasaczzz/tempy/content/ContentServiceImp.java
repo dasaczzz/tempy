@@ -1,16 +1,16 @@
 package com.dasaczzz.tempy.content;
 
+import java.util.List;
+import java.util.UUID;
+import org.springframework.stereotype.Service;
 import com.dasaczzz.tempy.content.dtos.CreateContentDTO;
 import com.dasaczzz.tempy.content.dtos.ResponseContentDTO;
 import com.dasaczzz.tempy.exception.ResourceNotFound;
 import com.dasaczzz.tempy.lib.BaseResponse;
 import com.dasaczzz.tempy.post.PostModel;
 import com.dasaczzz.tempy.post.PostRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -50,13 +50,7 @@ public class ContentServiceImp implements ContentService {
   }
 
   private ResponseContentDTO mapToDTO(ContentModel content) {
-    return ResponseContentDTO
-        .builder()
-        .id(content.getId())
-        .link(content.getLink())
-        .type(content.getType())
-        .idPost(content.getId())
-        .build();
+    return ResponseContentDTO.builder().id(content.getId()).link(content.getLink()).type(content.getType()).idPost(content.getId()).build();
   }
 
 }

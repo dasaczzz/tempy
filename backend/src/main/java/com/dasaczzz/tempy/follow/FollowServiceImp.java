@@ -1,15 +1,15 @@
 package com.dasaczzz.tempy.follow;
 
+import java.util.List;
+import org.springframework.stereotype.Service;
 import com.dasaczzz.tempy.exception.ConflictException;
 import com.dasaczzz.tempy.exception.ResourceNotFound;
 import com.dasaczzz.tempy.follow.dtos.FollowDTO;
 import com.dasaczzz.tempy.lib.BaseResponse;
 import com.dasaczzz.tempy.user.UserModel;
 import com.dasaczzz.tempy.user.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -63,4 +63,5 @@ public class FollowServiceImp implements FollowService {
   private FollowDTO mapToDTO(FollowModel follow) {
     return FollowDTO.builder().idFollowed(follow.getFollowed().getId()).idFollower(follow.getFollower().getId()).build();
   }
+
 }

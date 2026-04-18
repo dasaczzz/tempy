@@ -1,15 +1,15 @@
 package com.dasaczzz.tempy.follow;
 
+import java.io.Serializable;
+import java.util.Objects;
+import java.util.UUID;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.io.Serializable;
-import java.util.Objects;
-import java.util.UUID;
 
 @Embeddable
 @Getter
@@ -17,6 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class IdFollow implements Serializable {
+
   @Column(name = "idFollowed", nullable = false)
   private UUID idFollowed;
 
@@ -25,10 +26,8 @@ public class IdFollow implements Serializable {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o)
-      return true;
-    if (!( o instanceof IdFollow that ))
-      return false;
+    if (this == o) { return true; }
+    if (!( o instanceof IdFollow that )) { return false; }
     return Objects.equals(idFollowed, that.idFollowed) && Objects.equals(idFollower, that.idFollower);
   }
 
@@ -36,4 +35,5 @@ public class IdFollow implements Serializable {
   public int hashCode() {
     return Objects.hash(idFollowed, idFollower);
   }
+
 }

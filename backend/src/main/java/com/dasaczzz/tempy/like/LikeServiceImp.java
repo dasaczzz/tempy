@@ -1,17 +1,17 @@
 package com.dasaczzz.tempy.like;
 
-import com.dasaczzz.tempy.like.dtos.LikeDTO;
+import java.util.List;
+import org.springframework.stereotype.Service;
 import com.dasaczzz.tempy.exception.ConflictException;
 import com.dasaczzz.tempy.exception.ResourceNotFound;
 import com.dasaczzz.tempy.lib.BaseResponse;
+import com.dasaczzz.tempy.like.dtos.LikeDTO;
 import com.dasaczzz.tempy.post.PostModel;
-import com.dasaczzz.tempy.user.UserModel;
 import com.dasaczzz.tempy.post.PostRepository;
+import com.dasaczzz.tempy.user.UserModel;
 import com.dasaczzz.tempy.user.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -48,9 +48,7 @@ public class LikeServiceImp implements LikeService {
 
   @Override
   public BaseResponse<LikeDTO> getRecordById(IdLike id) {
-    LikeModel like = likeRepository
-        .findById(id)
-        .orElseThrow(() -> new ResourceNotFound(String.format("The like with id %s has not been found", id)));
+    LikeModel like = likeRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The like with id %s has not been found", id)));
     return BaseResponse.ok(mapToDTO(like));
   }
 

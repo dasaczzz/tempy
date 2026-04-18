@@ -1,19 +1,19 @@
 package com.dasaczzz.tempy.common;
 
-import com.github.f4b6a3.uuid.UuidCreator;
+import java.time.LocalDateTime;
+import java.util.UUID;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import com.github.f4b6a3.uuid.UuidCreator;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @MappedSuperclass
 @Getter
@@ -43,10 +43,8 @@ public abstract class BaseModel {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o)
-      return true;
-    if (!( o instanceof BaseModel that ))
-      return false;
+    if (this == o) { return true; }
+    if (!( o instanceof BaseModel that )) { return false; }
     return id != null && id.equals(that.id);
   }
 

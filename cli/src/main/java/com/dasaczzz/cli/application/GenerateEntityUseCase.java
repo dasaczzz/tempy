@@ -1,7 +1,7 @@
 package com.dasaczzz.cli.application;
 
-import com.dasaczzz.cli.scaffolding.EntityScaffolder;
 import org.springframework.stereotype.Service;
+import com.dasaczzz.cli.scaffolding.EntityScaffolder;
 
 /**
  * Application-layer use case for the <em>generate entity</em> command.

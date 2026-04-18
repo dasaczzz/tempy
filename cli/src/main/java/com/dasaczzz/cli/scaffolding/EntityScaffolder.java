@@ -1,17 +1,16 @@
 package com.dasaczzz.cli.scaffolding;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import org.springframework.stereotype.Component;
 import com.dasaczzz.cli.io.FileWriterService;
 import com.dasaczzz.cli.templates.ControllerTemplate;
 import com.dasaczzz.cli.templates.ModelTemplate;
 import com.dasaczzz.cli.templates.RepositoryTemplate;
 import com.dasaczzz.cli.templates.ServiceTemplate;
 import com.dasaczzz.cli.util.NamingUtils;
-import org.springframework.stereotype.Component;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Orchestrates the scaffolding of a new entity.
@@ -60,7 +59,8 @@ public class EntityScaffolder {
     for (Map.Entry<Path, String> entry : files.entrySet()) {
       try {
         fileWriterService.writeIfNotExists(entry.getKey(), entry.getValue());
-      } catch (IOException e) {
+      }
+      catch (IOException e) {
         return "Error writing " + entry.getKey().toAbsolutePath() + ": " + e.getMessage();
       }
     }

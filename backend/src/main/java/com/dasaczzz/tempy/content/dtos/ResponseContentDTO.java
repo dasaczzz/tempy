@@ -1,9 +1,13 @@
 package com.dasaczzz.tempy.content.dtos;
 
-import com.dasaczzz.tempy.content.TypeContent;
-import lombok.*;
-
 import java.util.UUID;
+import com.dasaczzz.tempy.content.TypeContent;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter

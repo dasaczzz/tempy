@@ -1,14 +1,14 @@
 package com.dasaczzz.tempy.user;
 
+import java.util.List;
+import java.util.UUID;
+import org.springframework.stereotype.Service;
 import com.dasaczzz.tempy.exception.ResourceNotFound;
 import com.dasaczzz.tempy.lib.BaseResponse;
 import com.dasaczzz.tempy.user.dtos.CreateUserDTO;
 import com.dasaczzz.tempy.user.dtos.ResponseUserDTO;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -40,9 +40,7 @@ public class UserServiceImp implements UserService {
 
   @Override
   public BaseResponse<ResponseUserDTO> getRecordById(UUID id) {
-    UserModel user = userRepository
-        .findById(id)
-        .orElseThrow(() -> new ResourceNotFound(String.format("The idUser '%s' has not been found", id)));
+    UserModel user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The idUser '%s' has not been found", id)));
     return BaseResponse.ok(mapToDTO(user));
   }
 

@@ -1,8 +1,7 @@
 package com.dasaczzz.tempy.common;
 
-import com.dasaczzz.tempy.lib.BaseResponse;
-
 import java.util.List;
+import com.dasaczzz.tempy.lib.BaseResponse;
 
 // ID: id type of the model. C: CreateDTO, R: ResponseDTO
 public interface BaseService<ID, C, R> {

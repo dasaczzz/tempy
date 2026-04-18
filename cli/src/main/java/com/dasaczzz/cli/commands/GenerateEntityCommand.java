@@ -1,9 +1,9 @@
 package com.dasaczzz.cli.commands;
 
-import com.dasaczzz.cli.application.GenerateEntityUseCase;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+import com.dasaczzz.cli.application.GenerateEntityUseCase;
 
 /**
  * Spring Shell command that exposes the {@code gen entity} command.

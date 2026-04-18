@@ -1,11 +1,15 @@
 package com.dasaczzz.tempy.content.dtos;
 
-import com.dasaczzz.tempy.content.TypeContent;
+import java.util.UUID;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import com.dasaczzz.tempy.content.TypeContent;
 
-import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
