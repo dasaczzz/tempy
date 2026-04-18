@@ -26,6 +26,12 @@
       <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
     </module>
 
+    <module name="AnnotationUseStyle">
+      <property name="elementStyle" value="compact"/>
+      <property name="trailingArrayComma" value="never"/>
+      <property name="closingParens" value="never"/>
+    </module>
+
     <module name="AvoidStarImport"/>
     <module name="UnusedImports"/>
     <module name="RedundantImport"/>

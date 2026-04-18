@@ -26,11 +26,11 @@ public class LikeModel {
   @EmbeddedId
   private IdLike id;
 
-  @ManyToOne()
+  @ManyToOne
   @JoinColumn(name = "idPost", referencedColumnName = "id", insertable = false, updatable = false)
   private PostModel post;
 
-  @ManyToOne()
+  @ManyToOne
   @JoinColumn(name = "idUser", referencedColumnName = "id", insertable = false, updatable = false)
   private UserModel user;
 

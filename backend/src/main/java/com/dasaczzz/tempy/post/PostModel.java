@@ -36,7 +36,7 @@ public class PostModel extends BaseModel {
   @Column(nullable = false)
   private Boolean isActive;
 
-  @ManyToOne()
+  @ManyToOne
   @JoinColumn(name = "idUser", nullable = false)
   private UserModel user;
 

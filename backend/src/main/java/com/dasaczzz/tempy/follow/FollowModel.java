@@ -25,11 +25,11 @@ public class FollowModel {
   @EmbeddedId
   private IdFollow id;
 
-  @ManyToOne()
+  @ManyToOne
   @JoinColumn(name = "idFollowed", referencedColumnName = "id", insertable = false, updatable = false)
   private UserModel followed;
 
-  @ManyToOne()
+  @ManyToOne
   @JoinColumn(name = "idFollower", referencedColumnName = "id", insertable = false, updatable = false)
   private UserModel follower;
 
