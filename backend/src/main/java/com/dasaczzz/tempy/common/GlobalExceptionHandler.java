@@ -42,12 +42,8 @@ public class GlobalExceptionHandler {
   // 400 — failed validations (@NotNull, @NotBlank, etc.)
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<BaseResponse<?>> handleValidation(MethodArgumentNotValidException ex) {
-    String errors = ex
-        .getBindingResult()
-        .getFieldErrors()
-        .stream()
-        .map(DefaultMessageSourceResolvable::getDefaultMessage)
-        .collect(Collectors.joining(", "));
+    String errors =
+        ex.getBindingResult().getFieldErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining(", "));
     return badRequest(errors);
   }
 
