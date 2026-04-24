@@ -21,7 +21,7 @@ public class UserServiceImp implements UserService {
   @Override
   public BaseResponse<ResponseUserDTO> createRecord(CreateUserDTO record) {
     UserModel user = UserModel.builder().username(record.username()).email(record.email()).password(record.password())
-                              .profilePicture(record.profilePicture() != null ? record.profilePicture() : DEFAULT_AVATAR).build();
+        .profilePicture(record.profilePicture() != null ? record.profilePicture() : DEFAULT_AVATAR).build();
     userRepository.save(user);
     userRepository.flush();
     return BaseResponse.ok(mapToDTO(user));

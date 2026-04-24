@@ -31,9 +31,9 @@ public class LikeServiceImp implements LikeService {
     }
 
     PostModel post = postRepository.findById(record.idPost())
-                                   .orElseThrow(() -> new ResourceNotFound(String.format("The idPost '%s' has not been found", record.idPost())));
+        .orElseThrow(() -> new ResourceNotFound(String.format("The idPost '%s' has not been found", record.idPost())));
     UserModel user = userRepository.findById(record.idUser())
-                                   .orElseThrow(() -> new ResourceNotFound(String.format("The idUser '%s' has not been found", record.idUser())));
+        .orElseThrow(() -> new ResourceNotFound(String.format("The idUser '%s' has not been found", record.idUser())));
 
     LikeModel like = likeRepository.save(new LikeModel(post, user));
     return BaseResponse.ok(mapToDTO(like));

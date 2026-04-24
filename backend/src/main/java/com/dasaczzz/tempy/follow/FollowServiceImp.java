@@ -30,10 +30,10 @@ public class FollowServiceImp implements FollowService {
       throw new ConflictException("The user is already following this user.");
     }
 
-    UserModel followed = userRepository.findById(record.idFollowed()).orElseThrow(
-        () -> new ResourceNotFound(String.format("The idFollowed '%s' has not been found", record.idFollowed())));
-    UserModel follower = userRepository.findById(record.idFollower()).orElseThrow(
-        () -> new ResourceNotFound(String.format("The idFollowed '%s' has not been found", record.idFollower())));
+    UserModel followed = userRepository.findById(record.idFollowed())
+        .orElseThrow(() -> new ResourceNotFound(String.format("The idFollowed '%s' has not been found", record.idFollowed())));
+    UserModel follower = userRepository.findById(record.idFollower())
+        .orElseThrow(() -> new ResourceNotFound(String.format("The idFollowed '%s' has not been found", record.idFollower())));
 
     FollowModel follow = followRepository.save(new FollowModel(followed, follower));
     return BaseResponse.ok(mapToDTO(follow));
