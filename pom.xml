@@ -14,7 +14,6 @@
 
   <modules>
     <module>backend</module>
-    <module>cli</module>
   </modules>
 
   <properties>
