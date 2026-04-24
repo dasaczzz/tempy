@@ -11,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import com.dasaczzz.tempy.exception.BadRequestException;
 import com.dasaczzz.tempy.exception.ConflictException;
 import com.dasaczzz.tempy.exception.ResourceNotFound;
 import com.dasaczzz.tempy.lib.BaseResponse;
@@ -91,6 +92,11 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(ConflictException.class)
   public ResponseEntity<BaseResponse<?>> handleConflict(ConflictException ex) {
     return ResponseEntity.status(HttpStatus.CONFLICT).body(BaseResponse.fail(ex.getMessage()));
+  }
+
+  @ExceptionHandler(BadRequestException.class)
+  public ResponseEntity<BaseResponse<?>> handleBadRequest(BadRequestException ex) {
+    return badRequest(ex.getMessage());
   }
 
   // private methods
