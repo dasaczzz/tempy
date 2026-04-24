@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import com.dasaczzz.tempy.common.BaseController;
 import com.dasaczzz.tempy.lib.BaseResponse;
 import com.dasaczzz.tempy.post.dtos.CreatePostDTO;
 import com.dasaczzz.tempy.post.dtos.ResponsePostDTO;
+import com.dasaczzz.tempy.post.dtos.UpdatePostDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -51,6 +53,11 @@ public class PostController implements BaseController<UUID, CreatePostDTO, Respo
   @DeleteMapping("/{id}")
   public ResponseEntity<BaseResponse<String>> deleteRecord(@PathVariable UUID id) {
     return new ResponseEntity<>(postService.deleteRecord(id), HttpStatus.OK);
+  }
+
+  @PatchMapping("/{id}")
+  public ResponseEntity<BaseResponse<ResponsePostDTO>> updateRecord(@PathVariable UUID id, @RequestBody UpdatePostDTO post) {
+    return new ResponseEntity<>(postService.updateRecord(id, post), HttpStatus.OK);
   }
 
 }
