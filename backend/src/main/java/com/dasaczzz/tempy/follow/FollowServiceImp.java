@@ -21,19 +21,19 @@ public class FollowServiceImp implements FollowService {
 
   @Override
   public BaseResponse<FollowDTO> createRecord(FollowDTO record) {
-    IdFollow idFollow = new IdFollow(record.getIdFollowed(), record.getIdFollower());
+    IdFollow idFollow = new IdFollow(record.idFollowed(), record.idFollower());
 
-    if (record.getIdFollower().equals(record.getIdFollowed())) {
+    if (record.idFollower().equals(record.idFollowed())) {
       throw new ConflictException("The user cannot follow herself.");
     }
     if (followRepository.existsById(idFollow)) {
       throw new ConflictException("The user is already following this user.");
     }
 
-    UserModel followed = userRepository.findById(record.getIdFollowed()).orElseThrow(
-        () -> new ResourceNotFound(String.format("The idFollowed '%s' has not been found", record.getIdFollowed())));
-    UserModel follower = userRepository.findById(record.getIdFollower()).orElseThrow(
-        () -> new ResourceNotFound(String.format("The idFollowed '%s' has not been found", record.getIdFollower())));
+    UserModel followed = userRepository.findById(record.idFollowed()).orElseThrow(
+        () -> new ResourceNotFound(String.format("The idFollowed '%s' has not been found", record.idFollowed())));
+    UserModel follower = userRepository.findById(record.idFollower()).orElseThrow(
+        () -> new ResourceNotFound(String.format("The idFollowed '%s' has not been found", record.idFollower())));
 
     FollowModel follow = followRepository.save(new FollowModel(followed, follower));
     return BaseResponse.ok(mapToDTO(follow));
@@ -64,7 +64,7 @@ public class FollowServiceImp implements FollowService {
   }
 
   private FollowDTO mapToDTO(FollowModel follow) {
-    return FollowDTO.builder().idFollowed(follow.getFollowed().getId()).idFollower(follow.getFollower().getId()).build();
+    return new FollowDTO(follow.getFollowed().getId(), follow.getFollower().getId());
   }
 
 }

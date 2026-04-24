@@ -25,17 +25,15 @@ public class LikeServiceImp implements LikeService {
 
   @Override
   public BaseResponse<LikeDTO> createRecord(LikeDTO record) {
-    IdLike idLike = new IdLike(record.getIdPost(), record.getIdUser());
+    IdLike idLike = new IdLike(record.idPost(), record.idUser());
     if (likeRepository.existsById(idLike)) {
       throw new ConflictException("The user already liked this post");
     }
 
-    PostModel post = postRepository
-        .findById(record.getIdPost())
-        .orElseThrow(() -> new ResourceNotFound(String.format("The idPost '%s' has not been found", record.getIdPost())));
-    UserModel user = userRepository
-        .findById(record.getIdUser())
-        .orElseThrow(() -> new ResourceNotFound(String.format("The idUser '%s' has not been found", record.getIdUser())));
+    PostModel post = postRepository.findById(record.idPost())
+                                   .orElseThrow(() -> new ResourceNotFound(String.format("The idPost '%s' has not been found", record.idPost())));
+    UserModel user = userRepository.findById(record.idUser())
+                                   .orElseThrow(() -> new ResourceNotFound(String.format("The idUser '%s' has not been found", record.idUser())));
 
     LikeModel like = likeRepository.save(new LikeModel(post, user));
     return BaseResponse.ok(mapToDTO(like));
@@ -55,12 +53,14 @@ public class LikeServiceImp implements LikeService {
   }
 
   @Override
-  public BaseResponse<LikeDTO> deleteRecord(IdLike id) {
-    return null;
+  public BaseResponse<String> deleteRecord(IdLike id) {
+    LikeModel like = likeRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The like with id %s has not been found", id)));
+    likeRepository.deleteById(like.getId());
+    return BaseResponse.ok("The like has been deleted successfully");
   }
 
   private LikeDTO mapToDTO(LikeModel like) {
-    return LikeDTO.builder().idPost(like.getPost().getId()).idUser(like.getUser().getId()).build();
+    return new LikeDTO(like.getPost().getId(), like.getUser().getId());
   }
 
 }

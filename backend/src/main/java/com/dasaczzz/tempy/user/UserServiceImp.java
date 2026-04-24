@@ -20,13 +20,8 @@ public class UserServiceImp implements UserService {
 
   @Override
   public BaseResponse<ResponseUserDTO> createRecord(CreateUserDTO record) {
-    UserModel user = UserModel
-        .builder()
-        .username(record.getUsername())
-        .email(record.getEmail())
-        .password(record.getPassword())
-        .profilePicture(record.getProfilePicture() != null ? record.getProfilePicture() : DEFAULT_AVATAR)
-        .build();
+    UserModel user = UserModel.builder().username(record.username()).email(record.email()).password(record.password())
+                              .profilePicture(record.profilePicture() != null ? record.profilePicture() : DEFAULT_AVATAR).build();
     userRepository.save(user);
     userRepository.flush();
     return BaseResponse.ok(mapToDTO(user));
@@ -46,19 +41,14 @@ public class UserServiceImp implements UserService {
   }
 
   @Override
-  public BaseResponse<ResponseUserDTO> deleteRecord(UUID id) {
-    return null;
+  public BaseResponse<String> deleteRecord(UUID id) {
+    UserModel user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The idUser '%s has not been found", id)));
+    userRepository.deleteById(user.getId());
+    return BaseResponse.ok(String.format("The user '%s' has been deleted successfully", user.getUsername()));
   }
 
   private ResponseUserDTO mapToDTO(UserModel user) {
-    return ResponseUserDTO
-        .builder()
-        .id(user.getId())
-        .username(user.getUsername())
-        .email(user.getEmail())
-        .profilePicture(user.getProfilePicture())
-        .createdAt(user.getCreatedAt())
-        .build();
+    return new ResponseUserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getProfilePicture(), user.getCreatedAt());
   }
 
 }

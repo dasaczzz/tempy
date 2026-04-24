@@ -22,9 +22,9 @@ public class ContentServiceImp implements ContentService {
 
   @Override
   public BaseResponse<ResponseContentDTO> createRecord(CreateContentDTO record) {
-    PostModel post = postRepository.findById(record.getIdPost())
-                                   .orElseThrow(() -> new ResourceNotFound(String.format("The idPost '%s' has not been found", record.getIdPost())));
-    ContentModel content = ContentModel.builder().link(record.getLink()).type(record.getType()).idPost(post).build();
+    PostModel post = postRepository.findById(record.idPost())
+                                   .orElseThrow(() -> new ResourceNotFound(String.format("The idPost '%s' has not been found", record.idPost())));
+    ContentModel content = ContentModel.builder().link(record.link()).type(record.type()).idPost(post).build();
     contentRepository.save(content);
     return BaseResponse.ok(mapToDTO(content));
   }
@@ -52,7 +52,7 @@ public class ContentServiceImp implements ContentService {
   }
 
   private ResponseContentDTO mapToDTO(ContentModel content) {
-    return ResponseContentDTO.builder().id(content.getId()).link(content.getLink()).type(content.getType()).idPost(content.getId()).build();
+    return new ResponseContentDTO(content.getId(), content.getLink(), content.getType(), content.getIdPost().getId());
   }
 
 }
