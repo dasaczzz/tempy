@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import com.dasaczzz.tempy.common.BaseController;
 import com.dasaczzz.tempy.lib.BaseResponse;
 import com.dasaczzz.tempy.user.dtos.CreateUserDTO;
 import com.dasaczzz.tempy.user.dtos.ResponseUserDTO;
+import com.dasaczzz.tempy.user.dtos.UpdateUserDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -50,4 +52,8 @@ public class UserController implements BaseController<UUID, CreateUserDTO, Respo
     return new ResponseEntity<>(userService.deleteRecord(id), HttpStatus.OK);
   }
 
+  @PatchMapping("/{id}")
+  public ResponseEntity<BaseResponse<ResponseUserDTO>> updateRecord(@PathVariable UUID id, @RequestBody UpdateUserDTO user) {
+    return new ResponseEntity<>(userService.updateRecord(id, user), HttpStatus.OK);
+  }
 }
