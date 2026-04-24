@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.SQLRestriction;
 import com.dasaczzz.tempy.common.BaseModel;
 import com.dasaczzz.tempy.user.UserModel;
 
@@ -22,6 +23,7 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@SQLRestriction("isDeleted = false")
 public class PostModel extends BaseModel {
 
   @Column(nullable = false)
@@ -35,6 +37,9 @@ public class PostModel extends BaseModel {
 
   @Column(nullable = false)
   private Boolean isActive;
+
+  @Column(nullable = false)
+  private Boolean isDeleted;
 
   @ManyToOne
   @JoinColumn(name = "idUser", nullable = false)

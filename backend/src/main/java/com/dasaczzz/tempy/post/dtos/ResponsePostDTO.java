@@ -3,31 +3,5 @@ package com.dasaczzz.tempy.post.dtos;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-@Builder
-@AllArgsConstructor
-public class ResponsePostDTO {
-
-  private UUID id;
-
-  private String text;
-
-  private LocalDateTime deadline;
-
-  private boolean isPublic;
-
-  private boolean isActive;
-
-  private UUID idUser;
-
-  private String username;
-
-  private String profilePicture;
-
-}
+public record ResponsePostDTO(UUID id, String text, LocalDateTime deadline, boolean isPublic, boolean isActive, boolean isDeleted, UUID idUser,
+                              String username, String profilePicture) { }

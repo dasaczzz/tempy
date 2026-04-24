@@ -22,17 +22,10 @@ public class PostServiceImp implements PostService {
 
   @Override
   public BaseResponse<ResponsePostDTO> createRecord(CreatePostDTO record) {
-    UserModel user = userRepository
-        .findById(record.getIdUser())
-        .orElseThrow(() -> new ResourceNotFound(String.format("The idUser '%s' has not been found", record.getIdUser())));
-    PostModel post = PostModel
-        .builder()
-        .text(record.getText())
-        .deadline(record.getDeadline())
-        .isPublic(record.getIsPublic())
-        .isActive(true)
-        .user(user)
-        .build();
+    UserModel user = userRepository.findById(record.getIdUser())
+                                   .orElseThrow(() -> new ResourceNotFound(String.format("The idUser '%s' has not been found", record.getIdUser())));
+    PostModel post =
+        PostModel.builder().text(record.getText()).deadline(record.getDeadline()).isPublic(record.getIsPublic()).isActive(true).user(user).build();
     postRepository.save(post);
     return BaseResponse.ok(mapToDTO(post));
   }
@@ -47,24 +40,21 @@ public class PostServiceImp implements PostService {
   @Override
   public BaseResponse<ResponsePostDTO> getRecordById(UUID id) {
     PostModel post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The idPost '%s' has not been found", id)));
+
     return BaseResponse.ok(mapToDTO(post));
   }
 
   @Override
-  public BaseResponse<ResponsePostDTO> deleteRecord(UUID id) { return null; }
+  public BaseResponse<String> deleteRecord(UUID id) {
+    PostModel post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The idPost '%s' has not been found", id)));
+    post.setIsDeleted(true);
+    postRepository.save(post);
+    return BaseResponse.ok("The post has been deleted successfully");
+  }
 
   private ResponsePostDTO mapToDTO(PostModel post) {
-    return ResponsePostDTO
-        .builder()
-        .id(post.getId())
-        .text(post.getText())
-        .deadline(post.getDeadline())
-        .isPublic(post.getIsPublic())
-        .isActive(post.getIsActive())
-        .idUser(post.getUser().getId())
-        .username(post.getUser().getUsername())
-        .profilePicture(post.getUser().getProfilePicture())
-        .build();
+    return new ResponsePostDTO(post.getId(), post.getText(), post.getDeadline(), post.getIsPublic(), post.getIsActive(), post.getIsDeleted(),
+        post.getUser().getId(), post.getUser().getUsername(), post.getUser().getProfilePicture());
   }
 
 }
