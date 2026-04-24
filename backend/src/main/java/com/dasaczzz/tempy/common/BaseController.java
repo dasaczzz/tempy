@@ -13,6 +13,6 @@ public interface BaseController<ID, C, R> {
 
   ResponseEntity<BaseResponse<R>> getRecordById(ID id);
 
-  ResponseEntity<BaseResponse<R>> deleteRecord(ID id);
+  ResponseEntity<BaseResponse<String>> deleteRecord(ID id);
 
 }

@@ -12,6 +12,6 @@ public interface BaseService<ID, C, R> {
 
   BaseResponse<R> getRecordById(ID id);
 
-  BaseResponse<R> deleteRecord(ID id);
+  BaseResponse<String> deleteRecord(ID id);
 
 }

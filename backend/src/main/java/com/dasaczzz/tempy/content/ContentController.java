@@ -5,6 +5,7 @@ import java.util.UUID;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,8 +45,9 @@ public class ContentController implements BaseController<UUID, CreateContentDTO,
   }
 
   @Override
-  public ResponseEntity<BaseResponse<ResponseContentDTO>> deleteRecord(UUID id) {
-    return null;
+  @DeleteMapping("/{id}")
+  public ResponseEntity<BaseResponse<String>> deleteRecord(UUID id) {
+    return new ResponseEntity<>(contentService.deleteRecord(id), HttpStatus.OK);
   }
 
 }

@@ -30,12 +30,10 @@ public class FollowServiceImp implements FollowService {
       throw new ConflictException("The user is already following this user.");
     }
 
-    UserModel followed = userRepository
-        .findById(record.getIdFollowed())
-        .orElseThrow(() -> new ResourceNotFound(String.format("The idFollowed '%s' has not been found", record.getIdFollowed())));
-    UserModel follower = userRepository
-        .findById(record.getIdFollower())
-        .orElseThrow(() -> new ResourceNotFound(String.format("The idFollowed '%s' has not been found", record.getIdFollower())));
+    UserModel followed = userRepository.findById(record.getIdFollowed()).orElseThrow(
+        () -> new ResourceNotFound(String.format("The idFollowed '%s' has not been found", record.getIdFollowed())));
+    UserModel follower = userRepository.findById(record.getIdFollower()).orElseThrow(
+        () -> new ResourceNotFound(String.format("The idFollowed '%s' has not been found", record.getIdFollower())));
 
     FollowModel follow = followRepository.save(new FollowModel(followed, follower));
     return BaseResponse.ok(mapToDTO(follow));
@@ -50,15 +48,19 @@ public class FollowServiceImp implements FollowService {
 
   @Override
   public BaseResponse<FollowDTO> getRecordById(IdFollow id) {
-    FollowModel follow = followRepository
-        .findById(id)
-        .orElseThrow(() -> new ResourceNotFound(String.format("The follow with id %s has not been found", id)));
+    FollowModel follow =
+        followRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The follow with id %s has not been found", id)));
     return BaseResponse.ok(mapToDTO(follow));
   }
 
   @Override
-  public BaseResponse<FollowDTO> deleteRecord(IdFollow idFollower) {
-    return null;
+  public BaseResponse<String> deleteRecord(IdFollow id) {
+
+    FollowModel follow =
+        followRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The follow with id %s has not been found", id)));
+    followRepository.deleteById(follow.getId());
+    return BaseResponse.ok(
+        String.format("The user '%s' stopped following '%s'", follow.getFollower().getUsername(), follow.getFollowed().getUsername()));
   }
 
   private FollowDTO mapToDTO(FollowModel follow) {

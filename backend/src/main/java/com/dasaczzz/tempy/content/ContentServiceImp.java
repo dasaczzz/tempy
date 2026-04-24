@@ -22,9 +22,8 @@ public class ContentServiceImp implements ContentService {
 
   @Override
   public BaseResponse<ResponseContentDTO> createRecord(CreateContentDTO record) {
-    PostModel post = postRepository
-        .findById(record.getIdPost())
-        .orElseThrow(() -> new ResourceNotFound(String.format("The idPost '%s' has not been found", record.getIdPost())));
+    PostModel post = postRepository.findById(record.getIdPost())
+                                   .orElseThrow(() -> new ResourceNotFound(String.format("The idPost '%s' has not been found", record.getIdPost())));
     ContentModel content = ContentModel.builder().link(record.getLink()).type(record.getType()).idPost(post).build();
     contentRepository.save(content);
     return BaseResponse.ok(mapToDTO(content));
@@ -39,15 +38,17 @@ public class ContentServiceImp implements ContentService {
 
   @Override
   public BaseResponse<ResponseContentDTO> getRecordById(UUID id) {
-    ContentModel content = contentRepository
-        .findById(id)
-        .orElseThrow(() -> new ResourceNotFound(String.format("The content with id %s has not been found", id)));
+    ContentModel content =
+        contentRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The content with id %s has not been found", id)));
     return BaseResponse.ok(mapToDTO(content));
   }
 
   @Override
-  public BaseResponse<ResponseContentDTO> deleteRecord(UUID id) {
-    return null;
+  public BaseResponse<String> deleteRecord(UUID id) {
+    ContentModel content =
+        contentRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The content with id %s has not been found", id)));
+    contentRepository.deleteById(content.getId());
+    return BaseResponse.ok("The content has been deleted successfully");
   }
 
   private ResponseContentDTO mapToDTO(ContentModel content) {
