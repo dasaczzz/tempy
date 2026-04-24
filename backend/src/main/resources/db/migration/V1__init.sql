@@ -4,7 +4,7 @@ CREATE TABLE User
     username       VARCHAR(50) UNIQUE NOT NULL,
     email          VARCHAR(50) UNIQUE NOT NULL,
     password       VARCHAR(70)        NOT NULL,
-    profilePicture VARCHAR(255)       NULL,
+    profilePicture VARCHAR(2048)      NOT NULL,
     createdAt      TIMESTAMP          NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updatedAt      TIMESTAMP          NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -26,7 +26,7 @@ CREATE TABLE Post
 CREATE TABLE Content
 (
     id        BINARY(16) PRIMARY KEY,
-    link      VARCHAR(255)                                      NOT NULL,
+    link      VARCHAR(2048)                                     NOT NULL,
     type      ENUM ('GIF', 'MP4', 'JPEG', 'JPG', 'PNG', 'WEBP') NOT NULL,
     idPost    BINARY(16)                                        NOT NULL,
     createdAt TIMESTAMP                                         NOT NULL DEFAULT CURRENT_TIMESTAMP,

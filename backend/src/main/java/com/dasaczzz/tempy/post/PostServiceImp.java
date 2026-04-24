@@ -22,10 +22,11 @@ public class PostServiceImp implements PostService {
 
   @Override
   public BaseResponse<ResponsePostDTO> createRecord(CreatePostDTO record) {
-    UserModel user = userRepository.findById(record.getIdUser())
-                                   .orElseThrow(() -> new ResourceNotFound(String.format("The idUser '%s' has not been found", record.getIdUser())));
+    UserModel user = userRepository.findById(record.idUser())
+        .orElseThrow(() -> new ResourceNotFound(String.format("The idUser '%s' has not been found", record.idUser())));
     PostModel post =
-        PostModel.builder().text(record.getText()).deadline(record.getDeadline()).isPublic(record.getIsPublic()).isActive(true).user(user).build();
+        PostModel.builder().text(record.text()).deadline(record.deadline()).isPublic(record.isPublic()).isActive(true).isDeleted(false).user(user)
+            .build();
     postRepository.save(post);
     return BaseResponse.ok(mapToDTO(post));
   }
@@ -54,7 +55,7 @@ public class PostServiceImp implements PostService {
 
   private ResponsePostDTO mapToDTO(PostModel post) {
     return new ResponsePostDTO(post.getId(), post.getText(), post.getDeadline(), post.getIsPublic(), post.getIsActive(), post.getIsDeleted(),
-        post.getUser().getId(), post.getUser().getUsername(), post.getUser().getProfilePicture());
+        post.getUser().getId(), post.getUser().getUsername(), post.getUser().getProfilePicture(), post.getCreatedAt());
   }
 
 }

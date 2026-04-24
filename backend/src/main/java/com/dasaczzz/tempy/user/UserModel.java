@@ -29,7 +29,7 @@ public class UserModel extends BaseModel {
   @Column(nullable = false, length = 70)
   private String password;
 
-  @Column
+  @Column(nullable = false, length = 2048)
   private String profilePicture;
 
 }

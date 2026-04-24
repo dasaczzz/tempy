@@ -7,7 +7,8 @@ VALUES (@user1, 'carlos_dev', 'carlos@tempy.com', '$2a$10$hashCarlos123456789012
         'https://cdn.tempy.com/avatars/carlos.webp'),
        (@user2, 'maria_ux', 'maria@tempy.com', '$2a$10$hashMaria1234567890123456789012345678901234567',
         'https://cdn.tempy.com/avatars/maria.webp'),
-       (@user3, 'juan_photo', 'juan@tempy.com', '$2a$10$hashJuan12345678901234567890123456789012345678', NULL);
+       (@user3, 'juan_photo', 'juan@tempy.com', '$2a$10$hashJuan12345678901234567890123456789012345678',
+        'https://cdn.tempy.com/avatars/default.webp');
 
 SET @post1 = UNHEX('018F3E2A1B2C7000BBBB000000000001');
 SET @post2 = UNHEX('018F3E2A1B2C7000BBBB000000000002');
