@@ -1,6 +1,6 @@
 package com.dasaczzz.tempy.post;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -30,7 +30,7 @@ public class PostModel extends BaseModel {
   private String text;
 
   @Column(name = "deadline", nullable = false)
-  private LocalDateTime deadline;
+  private Instant deadline;
 
   @Column(nullable = false)
   private Boolean isPublic;

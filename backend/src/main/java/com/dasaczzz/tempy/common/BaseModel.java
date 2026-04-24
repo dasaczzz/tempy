@@ -1,6 +1,6 @@
 package com.dasaczzz.tempy.common;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
@@ -28,11 +28,11 @@ public abstract class BaseModel {
 
   @CreationTimestamp
   @Column(name = "createdAt", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-  private LocalDateTime createdAt;
+  private Instant createdAt;
 
   @UpdateTimestamp
   @Column(name = "updatedAt", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-  private LocalDateTime updatedAt;
+  private Instant updatedAt;
 
   @PrePersist
   protected void prePersist() {
