@@ -48,19 +48,23 @@ public class LikeServiceImp implements LikeService {
 
   @Override
   public BaseResponse<LikeDTO> getRecordById(IdLike id) {
-    LikeModel like = likeRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The like with id %s has not been found", id)));
+    LikeModel like = findLikeById(id);
     return BaseResponse.ok(mapToDTO(like));
   }
 
   @Override
   public BaseResponse<String> deleteRecord(IdLike id) {
-    LikeModel like = likeRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The like with id %s has not been found", id)));
+    LikeModel like = findLikeById(id);
     likeRepository.deleteById(like.getId());
     return BaseResponse.ok("The like has been deleted successfully");
   }
 
   private LikeDTO mapToDTO(LikeModel like) {
     return new LikeDTO(like.getPost().getId(), like.getUser().getId());
+  }
+
+  private LikeModel findLikeById(IdLike id) {
+    return likeRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The like with id %s has not been found", id)));
   }
 
 }

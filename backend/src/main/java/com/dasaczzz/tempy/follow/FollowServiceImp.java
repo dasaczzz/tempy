@@ -48,16 +48,13 @@ public class FollowServiceImp implements FollowService {
 
   @Override
   public BaseResponse<FollowDTO> getRecordById(IdFollow id) {
-    FollowModel follow =
-        followRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The follow with id %s has not been found", id)));
+    FollowModel follow = findFollowById(id);
     return BaseResponse.ok(mapToDTO(follow));
   }
 
   @Override
   public BaseResponse<String> deleteRecord(IdFollow id) {
-
-    FollowModel follow =
-        followRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The follow with id %s has not been found", id)));
+    FollowModel follow = findFollowById(id);
     followRepository.deleteById(follow.getId());
     return BaseResponse.ok(
         String.format("The user '%s' stopped following '%s'", follow.getFollower().getUsername(), follow.getFollowed().getUsername()));
@@ -65,6 +62,10 @@ public class FollowServiceImp implements FollowService {
 
   private FollowDTO mapToDTO(FollowModel follow) {
     return new FollowDTO(follow.getFollowed().getId(), follow.getFollower().getId());
+  }
+
+  private FollowModel findFollowById(IdFollow id) {
+    return followRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The follow with id %s has not been found", id)));
   }
 
 }

@@ -45,14 +45,17 @@ public class ContentServiceImp implements ContentService {
 
   @Override
   public BaseResponse<String> deleteRecord(UUID id) {
-    ContentModel content =
-        contentRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The content with id %s has not been found", id)));
+    ContentModel content = findContentById(id);
     contentRepository.deleteById(content.getId());
     return BaseResponse.ok("The content has been deleted successfully");
   }
 
   private ResponseContentDTO mapToDTO(ContentModel content) {
     return new ResponseContentDTO(content.getId(), content.getLink(), content.getType(), content.getIdPost().getId());
+  }
+
+  private ContentModel findContentById(UUID id) {
+    return contentRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The content with id %s has not been found", id)));
   }
 
 }
