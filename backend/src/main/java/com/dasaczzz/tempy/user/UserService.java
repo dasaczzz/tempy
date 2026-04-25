@@ -1,7 +1,6 @@
 package com.dasaczzz.tempy.user;
 
 import java.util.UUID;
-import org.apache.coyote.BadRequestException;
 import com.dasaczzz.tempy.common.BaseService;
 import com.dasaczzz.tempy.lib.BaseResponse;
 import com.dasaczzz.tempy.user.dtos.CreateUserDTO;
