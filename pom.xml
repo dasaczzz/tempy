@@ -69,6 +69,7 @@
             <configLocation>./config/checkstyle.xml</configLocation>
             <consoleOutput>true</consoleOutput>
             <failsOnError>true</failsOnError>
+            <violationSeverity>warning</violationSeverity>
             <includeTestSourceDirectory>false</includeTestSourceDirectory>
           </configuration>
           <executions>
