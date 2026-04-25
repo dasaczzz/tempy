@@ -1,0 +1,26 @@
+name: Checkstyle
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  checkstyle:
+    name: code style analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: code checkout
+        uses: actions/checkout@v4
+
+      - name: JDK 21 config
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: execute Checkstyle
+        run: mvn checkstyle:check --no-transfer-progress
