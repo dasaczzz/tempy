@@ -36,9 +36,6 @@ public class PostModel extends BaseModel {
   private Boolean isPublic;
 
   @Column(nullable = false)
-  private Boolean isActive;
-
-  @Column(nullable = false)
   private Boolean isDeleted;
 
   @ManyToOne

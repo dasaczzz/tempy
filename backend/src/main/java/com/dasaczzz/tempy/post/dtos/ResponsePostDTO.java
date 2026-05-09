@@ -8,7 +8,6 @@ public record ResponsePostDTO(
     String text,
     Instant deadline,
     Boolean isPublic,
-    Boolean isActive,
     Boolean isDeleted,
     UUID idUser,
     String username,

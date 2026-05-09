@@ -9,10 +9,9 @@ public record UpdatePostDTO(
     String text,
     @Future(message = "The deadline must be a future date")
     Instant deadline,
-    Boolean isPublic,
-    Boolean isActive
+    Boolean isPublic
 ) {
 
-  public boolean isEmpty() { return text == null && deadline == null && isPublic == null && isActive == null; }
+  public boolean isEmpty() { return text == null && deadline == null && isPublic == null; }
 
 }
