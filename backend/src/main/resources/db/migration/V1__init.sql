@@ -15,7 +15,7 @@ CREATE TABLE Post
     text      VARCHAR(255) NOT NULL,
     deadline  TIMESTAMP    NOT NULL,
     isPublic  BOOLEAN      NOT NULL DEFAULT TRUE,
-    isActive  BOOLEAN      NOT NULL DEFAULT TRUE,
+    isDeleted BOOLEAN      NOT NULL DEFAULT FALSE,
     idUser    BINARY(16)   NOT NULL,
     createdAt TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -57,10 +57,9 @@ CREATE TABLE Follow
     CONSTRAINT checkNotSelfFollow CHECK (idFollowed <> idFollower)
 );
 
-CREATE INDEX idxPostIsActive ON Post (isActive);
-CREATE INDEX idxPostDeadline ON Post (deadline);
-CREATE INDEX idxUserUsername ON User (username);
-
 CREATE INDEX idxPostIdUser ON Post (idUser);
 CREATE INDEX idxFollowerIdx ON Follow (idFollower);
 CREATE INDEX idxLikeUser ON `Like` (idUser);
+
+CREATE INDEX idxPostFeed ON Post (idUser, isDeleted, deadline);
+CREATE INDEX idxFollowedIdx ON Follow (idFollowed);

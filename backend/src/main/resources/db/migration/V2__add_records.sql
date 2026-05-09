@@ -14,10 +14,10 @@ SET @post1 = UNHEX('018F3E2A1B2C7000BBBB000000000001');
 SET @post2 = UNHEX('018F3E2A1B2C7000BBBB000000000002');
 SET @post3 = UNHEX('018F3E2A1B2C7000BBBB000000000003');
 
-INSERT INTO Post (id, text, deadline, isPublic, isActive, idUser)
-VALUES (@post1, 'Primer post sobre desarrollo backend con Spring Boot!', '2025-12-31 23:59:59', TRUE, TRUE, @user1),
-       (@post2, 'Diseño UX: tips para mejorar la experiencia de usuario', '2025-11-30 23:59:59', TRUE, TRUE, @user2),
-       (@post3, 'Fotografía urbana en Cali — mis mejores tomas del mes', '2025-10-15 23:59:59', FALSE, TRUE, @user3);
+INSERT INTO Post (id, text, deadline, isPublic, idUser)
+VALUES (@post1, 'Primer post sobre desarrollo backend con Spring Boot!', '2025-12-31 23:59:59', TRUE, @user1),
+       (@post2, 'Diseño UX: tips para mejorar la experiencia de usuario', '2025-11-30 23:59:59',  TRUE, @user2),
+       (@post3, 'Fotografía urbana en Cali — mis mejores tomas del mes', '2025-10-15 23:59:59', FALSE,  @user3);
 
 SET @content1 = UNHEX('018F3E2A1B2C7000CCCC000000000001');
 SET @content2 = UNHEX('018F3E2A1B2C7000CCCC000000000002');

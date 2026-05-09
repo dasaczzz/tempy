@@ -16,7 +16,6 @@ public record CreatePostDTO(
     Instant deadline,
     @NotNull(message = "the visibility is required")
     Boolean isPublic,
-    Boolean isActive,
     @NotNull(message = "the id of the user is required")
     UUID idUser
 ) { }
