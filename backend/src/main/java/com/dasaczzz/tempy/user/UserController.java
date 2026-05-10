@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.dasaczzz.tempy.common.BaseController;
 import com.dasaczzz.tempy.lib.BaseResponse;
+import com.dasaczzz.tempy.post.dtos.ResponsePostDTO;
 import com.dasaczzz.tempy.user.dtos.CreateUserDTO;
 import com.dasaczzz.tempy.user.dtos.ResponseUserDTO;
 import com.dasaczzz.tempy.user.dtos.UpdateUserDTO;
@@ -27,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class UserController implements BaseController<UUID, CreateUserDTO, ResponseUserDTO> {
 
   private final UserService userService;
+
 
   @Override
   @PostMapping("/")
@@ -55,5 +57,15 @@ public class UserController implements BaseController<UUID, CreateUserDTO, Respo
   @PatchMapping("/{id}")
   public ResponseEntity<BaseResponse<ResponseUserDTO>> updateRecord(@PathVariable UUID id, @RequestBody UpdateUserDTO user) {
     return new ResponseEntity<>(userService.updateRecord(id, user), HttpStatus.OK);
+  }
+
+  @GetMapping("/{id}/posts")
+  public ResponseEntity<BaseResponse<List<ResponsePostDTO>>> getUserPosts(@PathVariable UUID id) {
+    return ResponseEntity.ok(userService.getUserPosts(id));
+  }
+
+  @GetMapping("/{id}/feed")
+  public ResponseEntity<BaseResponse<List<ResponsePostDTO>>> getUserFeed(@PathVariable UUID id) {
+    return ResponseEntity.ok(userService.getUserFeed(id));
   }
 }

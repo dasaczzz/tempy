@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import com.dasaczzz.tempy.exception.BadRequestException;
 import com.dasaczzz.tempy.exception.ResourceNotFound;
 import com.dasaczzz.tempy.lib.BaseResponse;
+import com.dasaczzz.tempy.post.PostModel;
+import com.dasaczzz.tempy.post.PostRepository;
+import com.dasaczzz.tempy.post.dtos.ResponsePostDTO;
 import com.dasaczzz.tempy.user.dtos.CreateUserDTO;
 import com.dasaczzz.tempy.user.dtos.ResponseUserDTO;
 import com.dasaczzz.tempy.user.dtos.UpdateUserDTO;
@@ -19,6 +22,8 @@ public class UserServiceImp implements UserService {
   private static final String DEFAULT_AVATAR = "https://cdn.tempy.com/avatars/default.webp";
 
   private final UserRepository userRepository;
+
+  private final PostRepository postRepository;
 
   @Override
   public BaseResponse<ResponseUserDTO> createRecord(CreateUserDTO record) {
@@ -62,8 +67,36 @@ public class UserServiceImp implements UserService {
     return BaseResponse.ok(mapToDTO(userUpdated));
   }
 
+  @Override
+  public BaseResponse<List<ResponsePostDTO>> getUserPosts(UUID id) {
+    findUserById(id);
+    List<PostModel> posts = postRepository.findPostsByUserId(id);
+    return BaseResponse.ok(posts.stream().map(this::mapPostToDTO).toList());
+  }
+
+  @Override
+  public BaseResponse<List<ResponsePostDTO>> getUserFeed(UUID id) {
+    findUserById(id);
+    List<PostModel> posts = postRepository.findFeedByUserId(id);
+    return BaseResponse.ok(posts.stream().map(this::mapPostToDTO).toList());
+  }
+
   private ResponseUserDTO mapToDTO(UserModel user) {
     return new ResponseUserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getProfilePicture(), user.getCreatedAt());
+  }
+
+  private ResponsePostDTO mapPostToDTO(PostModel post) {
+    return new ResponsePostDTO(
+        post.getId(),
+        post.getText(),
+        post.getDeadline(),
+        post.getIsPublic(),
+        post.getIsDeleted(),
+        post.getUser().getId(),
+        post.getUser().getUsername(),
+        post.getUser().getProfilePicture(),
+        post.getCreatedAt()
+    );
   }
 
   private UserModel findUserById(UUID id) {
