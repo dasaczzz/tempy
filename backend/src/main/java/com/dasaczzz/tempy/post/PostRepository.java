@@ -15,4 +15,15 @@ public interface PostRepository extends JpaRepository<PostModel, UUID> {
       """)
   List<PostModel> findPostsByUserId(@Param("userId") UUID userId);
 
+  @Query("""
+      SELECT p FROM PostModel p
+      WHERE p.user.id IN (
+          SELECT f.followed.id FROM FollowModel f WHERE f.follower.id = :userId
+      )
+      AND p.isDeleted = false
+      AND p.isPublic = true
+      ORDER BY p.createdAt DESC
+      """)
+  List<PostModel> findFeedByUserId(@Param("userId") UUID userId);
+
 }

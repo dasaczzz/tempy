@@ -67,19 +67,22 @@ public class UserServiceImp implements UserService {
     return BaseResponse.ok(mapToDTO(userUpdated));
   }
 
-  private ResponseUserDTO mapToDTO(UserModel user) {
-    return new ResponseUserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getProfilePicture(), user.getCreatedAt());
-  }
-
-  private UserModel findUserById(UUID id) {
-    return userRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The idUser '%s' has not been found", id)));
-  }
-
   @Override
   public BaseResponse<List<ResponsePostDTO>> getUserPosts(UUID id) {
     findUserById(id);
     List<PostModel> posts = postRepository.findPostsByUserId(id);
     return BaseResponse.ok(posts.stream().map(this::mapPostToDTO).toList());
+  }
+
+  @Override
+  public BaseResponse<List<ResponsePostDTO>> getUserFeed(UUID id) {
+    findUserById(id);
+    List<PostModel> posts = postRepository.findFeedByUserId(id);
+    return BaseResponse.ok(posts.stream().map(this::mapPostToDTO).toList());
+  }
+
+  private ResponseUserDTO mapToDTO(UserModel user) {
+    return new ResponseUserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getProfilePicture(), user.getCreatedAt());
   }
 
   private ResponsePostDTO mapPostToDTO(PostModel post) {
@@ -94,6 +97,10 @@ public class UserServiceImp implements UserService {
         post.getUser().getProfilePicture(),
         post.getCreatedAt()
     );
+  }
+
+  private UserModel findUserById(UUID id) {
+    return userRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The idUser '%s' has not been found", id)));
   }
 
 }

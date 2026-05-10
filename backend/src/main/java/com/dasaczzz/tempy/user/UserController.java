@@ -64,4 +64,8 @@ public class UserController implements BaseController<UUID, CreateUserDTO, Respo
     return ResponseEntity.ok(userService.getUserPosts(id));
   }
 
+  @GetMapping("/{id}/feed")
+  public ResponseEntity<BaseResponse<List<ResponsePostDTO>>> getUserFeed(@PathVariable UUID id) {
+    return ResponseEntity.ok(userService.getUserFeed(id));
+  }
 }

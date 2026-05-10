@@ -15,4 +15,6 @@ public interface UserService extends BaseService<UUID, CreateUserDTO, ResponseUs
 
   BaseResponse<List<ResponsePostDTO>> getUserPosts(UUID id);
 
+  BaseResponse<List<ResponsePostDTO>> getUserFeed(UUID id);
+
 }
