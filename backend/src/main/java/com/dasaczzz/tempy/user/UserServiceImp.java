@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import com.dasaczzz.tempy.exception.BadRequestException;
 import com.dasaczzz.tempy.exception.ResourceNotFound;
 import com.dasaczzz.tempy.lib.BaseResponse;
+import com.dasaczzz.tempy.post.PostModel;
+import com.dasaczzz.tempy.post.PostRepository;
+import com.dasaczzz.tempy.post.dtos.ResponsePostDTO;
 import com.dasaczzz.tempy.user.dtos.CreateUserDTO;
 import com.dasaczzz.tempy.user.dtos.ResponseUserDTO;
 import com.dasaczzz.tempy.user.dtos.UpdateUserDTO;
@@ -19,6 +22,8 @@ public class UserServiceImp implements UserService {
   private static final String DEFAULT_AVATAR = "https://cdn.tempy.com/avatars/default.webp";
 
   private final UserRepository userRepository;
+
+  private final PostRepository postRepository;
 
   @Override
   public BaseResponse<ResponseUserDTO> createRecord(CreateUserDTO record) {
@@ -68,6 +73,27 @@ public class UserServiceImp implements UserService {
 
   private UserModel findUserById(UUID id) {
     return userRepository.findById(id).orElseThrow(() -> new ResourceNotFound(String.format("The idUser '%s' has not been found", id)));
+  }
+
+  @Override
+  public BaseResponse<List<ResponsePostDTO>> getUserPosts(UUID id) {
+    findUserById(id);
+    List<PostModel> posts = postRepository.findPostsByUserId(id);
+    return BaseResponse.ok(posts.stream().map(this::mapPostToDTO).toList());
+  }
+
+  private ResponsePostDTO mapPostToDTO(PostModel post) {
+    return new ResponsePostDTO(
+        post.getId(),
+        post.getText(),
+        post.getDeadline(),
+        post.getIsPublic(),
+        post.getIsDeleted(),
+        post.getUser().getId(),
+        post.getUser().getUsername(),
+        post.getUser().getProfilePicture(),
+        post.getCreatedAt()
+    );
   }
 
 }
